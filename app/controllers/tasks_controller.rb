@@ -1,4 +1,4 @@
-class TaskController < ApplicationController
+class TasksController < ApplicationController
   def index
     @tasks = current_user.tasks
   end
@@ -12,14 +12,13 @@ class TaskController < ApplicationController
 
   def create
     @task = Task.new(task_params)
+    @task.user = current_user
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @tasks, notice: "Flat was successfully created." }
-        format.json { render :show, status: :created, location: @flat }
+        format.html { redirect_to tasks_path, notice: "Flat was successfully created." }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -31,6 +30,11 @@ class TaskController < ApplicationController
   end
 
   def destroy
+  end
 
+  private
+  
+  def task_params
+    params.require(:task).permit(:title, :content, :status, :importance, :deadline)
   end
 end
