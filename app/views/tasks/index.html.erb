@@ -1,9 +1,13 @@
 <h1>Your Tasks</h1>
 
-<% @tasks.each do |task| %>
-  <%= task.title %>
-  <%= task.status %>
-<% end %>
-
-<%= link_to 'New Task', new_task_path %>
-<%= link_to  'Sign out', destroy_user_session_path, method: :delete%>
+<div class="tasks-list">
+  <% @tasks.each do |task| %>
+    <%= task.title %>
+    <%= task.status %>
+    <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }%>
+  <% end %>
+</div>
+<div class="tasks-list-options">
+  <%= link_to 'New Task', new_task_path %>
+  <%= link_to  'Sign out', destroy_user_session_path, method: :delete%>
+</div>
