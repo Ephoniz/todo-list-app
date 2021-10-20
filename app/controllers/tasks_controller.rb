@@ -1,10 +1,11 @@
 class TasksController < ApplicationController
+  before_action :set_task, only: %i[ show edit update destroy ]
+  
   def index
     @tasks = current_user.tasks
   end
 
   def show
-    @task = set_task
   end
 
   def new
@@ -28,6 +29,13 @@ class TasksController < ApplicationController
   end
 
   def update
+    respond_to do |format|
+      if @task.update(task_params)
+        format.html { redirect_to tasks_path, notice: "Task was successfully created." }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
