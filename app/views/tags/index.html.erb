@@ -1,0 +1,10 @@
+<h1>Your tags</h1>
+
+<%unless @tags.present? %>
+  <h3>You don't have any tags created yet</h3>
+<% end %>
+<% @tags.each do |tag| %>
+  <%= tag.name %>
+<% end %>
+
+<%= link_to 'New Tag', new_tag_path %>
