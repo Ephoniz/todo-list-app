@@ -1,5 +1,7 @@
 class Task < ApplicationRecord
   belongs_to :user
+  has_many :tags
+  validates_lenght_of :tags, maximum: 3
 
   validates :title, presence: true
   validates :status, presence: true, inclusion: { in: %w[to_do done],
