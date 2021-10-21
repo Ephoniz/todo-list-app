@@ -3,11 +3,15 @@
 <div class="tasks-list">
   <% @tasks.each do |task| %>
     <div class="task-card">
-      <%= task.title %>
-      <%= task.status %>
-      <% task.tags.each do |tag| %>
-        <span><%= tag.name %></span>
-      <% end%>
+      <div class="task-card-header">
+        <span class="task-title"><%= task.title %></span>
+        <span class="<%=task.status%>"><%= task.status %></span>
+      </div>
+      <div class="task-tags">
+        <% task.tags.each do |tag| %>
+          <span class="tag"><%= tag.name %></span>
+        <% end%>
+      </div>
       <div class="task-options">
         <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }%>
         <%= link_to 'Edit', edit_task_path(task)%>
