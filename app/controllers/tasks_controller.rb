@@ -9,23 +9,26 @@ class TasksController < ApplicationController
   end
 
   def new
+    @tags = current_user.tags
     @task = Task.new
   end
 
   def create
+    @tags = current_user.tags
     @task = Task.new(task_params)
     @task.user = current_user
 
     respond_to do |format|
-      if @task.save
+      if add_tags && @task.save
         format.html { redirect_to tasks_path, notice: "Task was successfully created." }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new, notice: "Couldn't create the task, please try again." }
       end
     end
   end
 
   def edit
+    @tags = current_user.tags
   end
 
   def update
@@ -54,5 +57,15 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:title, :content, :status, :importance, :deadline)
+  end
+
+  def add_tags
+    selected_tags = params['task']['tags']
+    return false unless selected_tags.size <= 3
+
+    selected_tags.each do |tag_id|
+      tag = Tag.find(tag_id.to_i)
+      TaskTag.create(tag: tag, task: @task)
+    end
   end
 end

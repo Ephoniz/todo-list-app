@@ -2,11 +2,18 @@
 
 <div class="tasks-list">
   <% @tasks.each do |task| %>
-    <%= task.title %>
-    <%= task.status %>
-    <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }%>
-    <%= link_to 'Edit', edit_task_path(task)%>
-    <%= link_to 'More info', task%>
+    <div class="task-card">
+      <%= task.title %>
+      <%= task.status %>
+      <% task.tags.each do |tag| %>
+        <span><%= tag.name %></span>
+      <% end%>
+      <div class="task-options">
+        <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }%>
+        <%= link_to 'Edit', edit_task_path(task)%>
+        <%= link_to 'More info', task%>
+      </div>
+    </div>
   <% end %>
 </div>
 <div class="tasks-list-options">

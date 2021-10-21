@@ -36,6 +36,14 @@
     <%= form.date_field :deadline %>
   </div>
 
+  <div class="field">
+  <%= form.label :tags %>
+  <% @tags.each do |tag| %>
+      <%= form.label tag.name %>
+      <%= form.check_box :tags, {:multiple => true}, tag.id, nil %>   
+  <% end %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>
