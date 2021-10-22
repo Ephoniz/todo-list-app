@@ -1,8 +1,9 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
-  
+
   def index
-    @tasks = current_user.tasks
+    @filter = TaskFilter.new(params)
+    @tasks = @filter.filter!
   end
 
   def show

@@ -20,6 +20,23 @@
     </div>
   <% end %>
 </div>
+
+<div class="index-filters">
+    <h2>Filters</h2>
+
+    <%= simple_form_for :search, url: tasks_path, method: :get do |f| %>
+    <div class="form-group filters-box">
+      <%= f.input :user, input_html: { value: current_user }%>
+      <%= f.input :deadline, label: 'Max. radius (in km)', input_html: { value: @filter.deadline } %>
+      <%= f.input :tags, label: 'Max. price per night', input_html: { value: @filter.tags } %>
+      <%= f.input :importance, label: 'Max. temperature (in ºC)', input_html: { value: @filter.importance } %>
+      <%= f.input :status, collection: ['to_do', 'done'], label: false, prompt: 'Select the status', class: 'filter-dropdown', input_html: { value: @filter.status }%>
+      <%= f.submit 'GO!', name: nil, class: 'red-btn' %>
+    </div>
+  
+    <% end %>
+    </div>
+
 <div class="tasks-list-options">
   <%= link_to 'New Task', new_task_path %>
   <%= link_to  'Sign out', destroy_user_session_path, method: :delete%>
