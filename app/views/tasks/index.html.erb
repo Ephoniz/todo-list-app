@@ -1,6 +1,7 @@
 <h1>Your Tasks</h1>
 
 <div class="tasks-list">
+
   <% @tasks.each do |task| %>
     <div class="task-card">
       <div class="task-card-header">
@@ -14,7 +15,6 @@
       </div>
       <div class="task-options">
         <%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' }%>
-        <%= link_to 'Edit', edit_task_path(task)%>
         <%= link_to 'More info', task%>
       </div>
     </div>
@@ -26,11 +26,9 @@
 
     <%= simple_form_for :search, url: tasks_path, method: :get do |f| %>
     <div class="form-group filters-box">
-      <%= f.input :user, input_html: { value: current_user }%>
-      <%= f.input :deadline, label: 'Max. radius (in km)', input_html: { value: @filter.deadline } %>
-      <%= f.input :tags, label: 'Max. price per night', input_html: { value: @filter.tags } %>
-      <%= f.input :importance, label: 'Max. temperature (in ºC)', input_html: { value: @filter.importance } %>
-      <%= f.input :status, collection: ['to_do', 'done'], label: false, prompt: 'Select the status', class: 'filter-dropdown', input_html: { value: @filter.status }%>
+      <%= f.input :deadline, as: :string, label: 'Max. deadline', required: false, input_html: { value: @filter.deadline, type: :date } %>
+      <%= f.input :importance, label: 'Importance', required: false, input_html: { value: @filter.importance } %>
+      <%= f.input :status, collection: ['to_do', 'done'], label: false, prompt: 'Select the status', required: false, class: 'filter-dropdown', input_html: { value: @filter.status }%>
       <%= f.submit 'GO!', name: nil, class: 'red-btn' %>
     </div>
   
@@ -39,5 +37,6 @@
 
 <div class="tasks-list-options">
   <%= link_to 'New Task', new_task_path %>
+  <%= link_to 'My tags', tags_path %>
   <%= link_to  'Sign out', destroy_user_session_path, method: :delete%>
 </div>

@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  # current_user.present? ? root 'tasks#index' : root 'users#'
-
   devise_scope :user do
     authenticated do
       root to: 'tasks#index'
@@ -12,7 +10,6 @@ Rails.application.routes.draw do
   end
 
   devise_for :users
-  resources :tasks
-  resources :tags
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :tasks, only: %i[show update destroy create index edit new]
+  resources :tags, only: %i[index create destroy new]
 end

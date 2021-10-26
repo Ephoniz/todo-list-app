@@ -2,6 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
 
   def index
+    params['user'] = current_user.id
     @filter = TaskFilter.new(params)
     @tasks = @filter.filter!
   end
@@ -29,17 +30,9 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @tags = current_user.tags
   end
 
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { redirect_to tasks_path, notice: "Task was successfully created." }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
-    end
   end
 
   def destroy

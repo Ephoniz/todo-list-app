@@ -1,4 +1,14 @@
 <h1><%= @task.title %></h1>
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
+<p>Description: <%= @task.content == "" ? "This task doesn't have a description" : @task.content %></p>
+<p>Importance level: <%= @task.importance %></p>
+<p>Status: <%= @task.status %></p>
+<p>Deadline: <%= @task.deadline%></p>
+<div class="task-tags">
+  <% @task.tags.each do |tag| %>
+    <span class="tag"><%= tag.name %></span>
+  <% end%>
+</div>
+
+<%= link_to 'Edit', edit_task_path(@task) %>
 <%= link_to 'Back', tasks_path %>
