@@ -56,6 +56,7 @@ class TasksController < ApplicationController
   def add_tags
     selected_tags = params['task']['tags']
     return false unless selected_tags.size <= 3
+    return true if selected_tags.nil?
 
     selected_tags.each do |tag_id|
       tag = Tag.find(tag_id.to_i)
