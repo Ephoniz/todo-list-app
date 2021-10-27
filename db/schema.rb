@@ -12,17 +12,20 @@
 
 ActiveRecord::Schema.define(version: 2021_10_20_143414) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "tags", force: :cascade do |t|
     t.string "name"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_tags_on_user_id"
   end
 
   create_table "task_tags", force: :cascade do |t|
-    t.integer "task_id", null: false
-    t.integer "tag_id", null: false
+    t.bigint "task_id", null: false
+    t.bigint "tag_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["tag_id"], name: "index_task_tags_on_tag_id"
@@ -35,7 +38,7 @@ ActiveRecord::Schema.define(version: 2021_10_20_143414) do
     t.string "status"
     t.integer "importance"
     t.date "deadline"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_tasks_on_user_id"
